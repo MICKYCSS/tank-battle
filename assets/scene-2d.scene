@@ -20,6 +20,7 @@
     ],
     "_active": true,
     "_components": [],
+    "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
@@ -49,7 +50,7 @@
     },
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 217
+      "__id__": 218
     },
     "_id": "707cd20e-e96b-4ccf-a531-205f75ee2149"
   },
@@ -77,19 +78,19 @@
         "__id__": 201
       },
       {
-        "__id__": 206
+        "__id__": 207
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 214
-      },
-      {
         "__id__": 215
       },
       {
         "__id__": 216
+      },
+      {
+        "__id__": 217
       }
     ],
     "_prefab": null,
@@ -179,7 +180,7 @@
     "_priority": 0,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 373.03621169916437,
+    "_orthoHeight": 320,
     "_near": 0,
     "_far": 1000,
     "_color": {
@@ -7252,7 +7253,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 205
+        "__id__": 206
       }
     ],
     "_prefab": null,
@@ -7300,6 +7301,9 @@
       },
       {
         "__id__": 204
+      },
+      {
+        "__id__": 205
       }
     ],
     "_prefab": null,
@@ -7392,6 +7396,17 @@
     "_id": "20hFUYKmJI44cuH+ddHG5h"
   },
   {
+    "__type__": "f14c0PJvalEqLRc1V1JSElB",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 202
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_id": "70u6dCGwRIy7twuqU55RSA"
+  },
+  {
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
@@ -7421,16 +7436,16 @@
     },
     "_children": [
       {
-        "__id__": 207
+        "__id__": 208
       },
       {
-        "__id__": 210
+        "__id__": 211
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 213
+        "__id__": 214
       }
     ],
     "_prefab": null,
@@ -7468,16 +7483,16 @@
     "_name": "enemy1",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 206
+      "__id__": 207
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 208
+        "__id__": 209
       },
       {
-        "__id__": 209
+        "__id__": 210
       }
     ],
     "_prefab": null,
@@ -7515,7 +7530,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 207
+      "__id__": 208
     },
     "_enabled": true,
     "__prefab": null,
@@ -7536,7 +7551,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 207
+      "__id__": 208
     },
     "_enabled": true,
     "__prefab": null,
@@ -7574,16 +7589,16 @@
     "_name": "enemy2",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 206
+      "__id__": 207
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 211
+        "__id__": 212
       },
       {
-        "__id__": 212
+        "__id__": 213
       }
     ],
     "_prefab": null,
@@ -7621,7 +7636,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 210
+      "__id__": 211
     },
     "_enabled": true,
     "__prefab": null,
@@ -7642,7 +7657,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 210
+      "__id__": 211
     },
     "_enabled": true,
     "__prefab": null,
@@ -7680,7 +7695,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 206
+      "__id__": 207
     },
     "_enabled": true,
     "__prefab": null,
@@ -7764,22 +7779,22 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 218
-    },
-    "shadows": {
       "__id__": 219
     },
-    "_skybox": {
+    "shadows": {
       "__id__": 220
     },
-    "fog": {
+    "_skybox": {
       "__id__": 221
     },
-    "octree": {
+    "fog": {
       "__id__": 222
     },
-    "lightProbeInfo": {
+    "octree": {
       "__id__": 223
+    },
+    "lightProbeInfo": {
+      "__id__": 224
     },
     "bakedWithStationaryMainLight": false,
     "bakedWithHighpLightmap": false
