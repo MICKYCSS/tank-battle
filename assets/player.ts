@@ -3,10 +3,10 @@ import { _decorator, Component, systemEvent, SystemEvent, EventKeyboard, Prefab,
  } from 'cc';
 const { ccclass, property } = _decorator;
 
-const FROM_DIRECTION = quat(0,0,0,1)
-const LEFT_DIRECTION = quat(0,0,0.7,0.7)
-const RIGHT_DIRECTION = quat(0,0,-0.7,0.7)
-const BACK_DIRECTION = quat(0,0,1,6.12*Math.E ** (-17))
+const DIRECTION_UP = quat(0,0,0,1)
+const DIRECTION_LEFT = quat(0,0,0.7,0.7)
+const DIRECTION_RIGHT = quat(0,0,-0.7,0.7)
+const DIRECTION_DOWN = quat(0,0,1,6.12*Math.E ** (-17))
 
 @ccclass('player')
 export class player extends Component {
@@ -15,10 +15,10 @@ export class player extends Component {
 
     private _moveOffset: number = 10.0;
     private _bulletSpeed: number = 500;
-    private _bulletInterval: number = 0.2;
+    private _bulletInterval: number = 0.08;// 子弹间隔时间
+    private _bulletVelocity:Vec2 = new Vec2(0, 1); // 子弹方向
     private _timeElapse: number = 0;
     private _isFiring: boolean = false;
-
     update (deltaTime: number) {
         if (this._isFiring) {
             this._timeElapse += deltaTime;
@@ -33,15 +33,16 @@ export class player extends Component {
         bullet.setPosition(this.node.position);
         this.node.parent.addChild(bullet);
         // const worldMatrix = this.node.getWorldMatrix(); // 获取节点的世界矩阵
-        const velocity = new Vec2(0, 1); // 使用矩阵的第一列作为向量的坐标
-        velocity.multiplyScalar(this._bulletSpeed);
-        console.log(bullet.getComponent(RigidBody2D))
-        bullet.getComponent(RigidBody2D).linearVelocity = velocity
+        // 缩放向量大小
+        this._bulletVelocity.multiplyScalar(this._bulletSpeed);
+        // console.log(bullet.getComponent(RigidBody2D))
+        // linearVelocity用来改变子弹线速度
+        bullet.getComponent(RigidBody2D).linearVelocity = this._bulletVelocity
     }
     onLoad () {
         // 注册键盘事件
-        console.log(this.node,this.node.getPosition(),this.node.getRotation(),this.node.anchorX,this.node.anchorY)
-        console.log(this.node,this.node.getPosition(),this.node.getRotation(),this.node.anchorX,this.node.anchorY)
+        // console.log(this.node,this.node.getPosition(),this.node.getRotation(),this.node.anchorX,this.node.anchorY)
+        // console.log(this.node,this.node.getPosition(),this.node.getRotation(),this.node.anchorX,this.node.anchorY)
         systemEvent.on(SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         systemEvent.on(SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
     }
@@ -50,15 +51,41 @@ export class player extends Component {
         systemEvent.off(SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         systemEvent.off(SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
     }
-    private onMoveX(offsetX){
-        const { x,y } = this.node.getPosition();
-        this.node.setPosition(x + offsetX,y);
+
+    onCollisionEnter(){
+        console.log('123')
     }
 
-    private onMoveY(offsetY){
-        const { x,y } = this.node.getPosition();
-        this.node.setPosition(x,y + offsetY);
+    private onBulletDirection(direction){
+        switch (direction) {
+            case DIRECTION_UP:
+                this._bulletVelocity = new Vec2(0, 1)
+                break;
+            case DIRECTION_DOWN:
+                this._bulletVelocity = new Vec2(0, -1)
+                break;
+            case DIRECTION_LEFT:
+                this._bulletVelocity = new Vec2(-1, 0)
+                break;
+            case DIRECTION_RIGHT:
+                this._bulletVelocity = new Vec2(1, 0)
+                break
+            default:
+                break;
+        }
     }
+
+    private onMove(direction,offset){
+        this.onBulletDirection(direction)
+        const { x,y } = this.node.getPosition();
+        this.node.setRotation(direction);
+        if(direction === DIRECTION_UP || direction === DIRECTION_DOWN){
+            this.node.setPosition(x, y + offset);
+        }else{
+            this.node.setPosition(x + offset,y);
+        }
+    }
+  
     private stopMove () {
         // 停止移动时，将坦克速度设置为 0
         const rigidbody = this.node.getComponent(RigidBody2D);
@@ -87,26 +114,22 @@ export class player extends Component {
             case KeyCode.KEY_W:
             case KeyCode.ARROW_UP:
                 // 上移
-                this.node.setRotation(FROM_DIRECTION);
-                this.onMoveY(this._moveOffset)
+                this.onMove(DIRECTION_UP,this._moveOffset)
                 break;
             case KeyCode.KEY_S:
             case KeyCode.ARROW_DOWN:
                 // 下移
-                this.node.setRotation(BACK_DIRECTION);
-                this.onMoveY(-this._moveOffset)
+                 this.onMove(DIRECTION_DOWN,-this._moveOffset)
                 break;
             case  KeyCode.KEY_A:
             case  KeyCode.ARROW_LEFT:
                 // 左移
-                this.node.setRotation(LEFT_DIRECTION);
-                this.onMoveX(-this._moveOffset)
+                this.onMove(DIRECTION_LEFT,-this._moveOffset)
                 break;
             case KeyCode.KEY_D:
             case KeyCode.ARROW_RIGHT:
                 // 右移
-                this.node.setRotation(RIGHT_DIRECTION);
-                this.onMoveX(this._moveOffset)
+                   this.onMove(DIRECTION_RIGHT,this._moveOffset)
                 break;
             case KeyCode.SPACE:
                 this._isFiring = true
