@@ -1,4 +1,4 @@
-import { _decorator, Component, BoxCollider2D,Contact2DType } from 'cc';
+import { _decorator, Component, BoxCollider2D,Contact2DType,RigidBody } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('enemy')
@@ -17,14 +17,16 @@ export class enemy extends Component {
          collider.on(Contact2DType.END_CONTACT, this.onEndContact, this);
     }
    
-    onBeginContact(){
-        console.log('onBeginContact')
+    onBeginContact(ev,self,otherCollider){
+        if(self.node._name === 'bullet'){
+            this.node.destroy()
+        }
     }
     onStayContact(){
-        console.log('onStayContact')
+        console.log('enemy onStayContact')
     }
     onEndContact(){
-        console.log('onEndContact')
+        console.log('enemy onEndContact')
     }
 }
 

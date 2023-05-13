@@ -2,12 +2,22 @@
   "__version__": "1.0.4",
   "physics": {
     "collisionMatrix": {
-      "0": 1,
-      "1": 0
+      "0": 5,
+      "1": 2,
+      "2": 5
     },
     "gravity": {
       "y": -10
     },
-    "collisionGroups": []
+    "collisionGroups": [
+      {
+        "index": 1,
+        "name": "enemy"
+      },
+      {
+        "index": 2,
+        "name": "bullet"
+      }
+    ]
   }
 }
